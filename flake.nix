@@ -57,6 +57,11 @@
             python3 -c 'import json; from pathlib import Path; p=Path("native-image-configs/resource-config.json"); d=json.loads(p.read_text()); i=d["resources"]["includes"]; e={x.get("pattern") for x in i}; [i.append({"pattern": x}) for x in [r"\Qelectrum/checkpoints_testnet.json\E", r"\Qelectrum/servers_testnet.json\E"] if x not in e]; p.write_text(json.dumps(d, indent=2)+chr(10))'
           '';
 
+          patchImmortanCheckpoints = ''
+            install -Dm644 ${self}/checkpoints/checkpoints_mainnet.json src/main/resources/electrum/checkpoints_mainnet.json
+            install -Dm644 ${self}/checkpoints/checkpoints_testnet.json src/main/resources/electrum/checkpoints_testnet.json
+          '';
+
           # SBT/Maven dependencies are not GitHub sources and are normally
           # downloaded by sbt.  Put them in a fixed-output derivation so Nix may
           # fetch them once, hash the resulting cache, then reuse it offline.
@@ -68,14 +73,13 @@
             dontUnpack = true;
             outputHashMode = "recursive";
             outputHashAlgo = "sha256";
-            # First build will intentionally fail and print the real hash.
-            # Replace this value with the printed sha256, then run nix build again.
-            outputHash = "sha256-PJGBfsZ3VHNBDnkg0j1xTGmnpNRAlcvkWFrYQYfZE8s=";
+            outputHash = "sha256-qBuOwRPH2ISRH7R3ViITUhlfvMV1Njpr+ruRulhdX8U=";
             buildPhase = ''
               ${setupTools}
               cp -R ${immortan} "$TMPDIR/immortan"
               chmod -R u+w "$TMPDIR/immortan"
               cd "$TMPDIR/immortan"
+              ${patchImmortanCheckpoints}
               perl -i -0pe 's/.*sonatype.*\n//g' build.sbt
               sbt publishLocal update compile
 
@@ -110,6 +114,7 @@
               cp -R ${immortan} "$TMPDIR/immortan"
               chmod -R u+w "$TMPDIR/immortan"
               cd "$TMPDIR/immortan"
+              ${patchImmortanCheckpoints}
               perl -i -0pe 's/.*sonatype.*\n//g' build.sbt
               sbt publishLocal
               cd "$NIX_BUILD_TOP/source"
