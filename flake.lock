@@ -1,0 +1,89 @@
+{
+  "nodes": {
+    "cliche": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684411643,
+        "narHash": "sha256-/5eGIECyRKjVzeNb89RAc7N1p/oyk9syTDLRlSPnwC8=",
+        "owner": "nbd-wtf",
+        "repo": "cliche",
+        "rev": "75ac2cadc77290127781c345cea823b13957320d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nbd-wtf",
+        "repo": "cliche",
+        "type": "github"
+      }
+    },
+    "graal": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643829608,
+        "narHash": "sha256-g7q4hC03HWodUakzorwiSHYHMoPY9v4lOvL3GZlD1cU=",
+        "type": "tarball",
+        "url": "https://github.com/gluonhq/graal/releases/download/gluon-22.0.0.3-Final/graalvm-svm-java11-linux-gluon-22.0.0.3-Final.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/gluonhq/graal/releases/download/gluon-22.0.0.3-Final/graalvm-svm-java11-linux-gluon-22.0.0.3-Final.zip"
+      }
+    },
+    "immortan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1684295215,
+        "narHash": "sha256-zj170vVE3GzYgc75juU5mNRsVtod64f4leG1PDV5kSY=",
+        "owner": "fiatjaf",
+        "repo": "immortan",
+        "rev": "60887829c3ca2381f38414a8c497ecaec2aeea10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fiatjaf",
+        "repo": "immortan",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1783776592,
+        "narHash": "sha256-UgCQzxeWI75XM8G+hPrPh+MKzEPjG3SpAj7dtqSbksA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e7a3ca8092b61ff85b6a45bf863ea2b2d6a661b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "cliche": "cliche",
+        "graal": "graal",
+        "immortan": "immortan",
+        "nixpkgs": "nixpkgs",
+        "sbt": "sbt"
+      }
+    },
+    "sbt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1643689890,
+        "narHash": "sha256-Bp16jOHntS0ixrpzF3aBLMZT/p4YAuZeQdCQq8DOhRE=",
+        "type": "tarball",
+        "url": "https://github.com/sbt/sbt/releases/download/v1.6.2/sbt-1.6.2.tgz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/sbt/sbt/releases/download/v1.6.2/sbt-1.6.2.tgz"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
