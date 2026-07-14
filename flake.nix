@@ -15,7 +15,7 @@
         let
           pkgs = import nixpkgs { inherit system; };
 
-          commonNativeBuildInputs = with pkgs; [ bash gcc gnumake perl python3 file unzip patchelf autoPatchelfHook ];
+          commonNativeBuildInputs = with pkgs; [ bash gcc gnumake perl python3 file unzip patch patchelf autoPatchelfHook ];
           commonBuildInputs = with pkgs; [
             zlib glibc stdenv.cc.cc.lib
             libxext libx11 libxrender libxtst libxi freetype alsa-lib
@@ -57,9 +57,17 @@
             python3 -c 'import json; from pathlib import Path; p=Path("native-image-configs/resource-config.json"); d=json.loads(p.read_text()); i=d["resources"]["includes"]; e={x.get("pattern") for x in i}; [i.append({"pattern": x}) for x in [r"\Qelectrum/checkpoints_testnet.json\E", r"\Qelectrum/servers_testnet.json\E"] if x not in e]; p.write_text(json.dumps(d, indent=2)+chr(10))'
           '';
 
+          patchImmortanSyncNodes = ''
+            patch -p1 < ${self}/patches/immortan-sync-nodes.patch
+          '';
+
           patchImmortanCheckpoints = ''
             install -Dm644 ${self}/checkpoints/checkpoints_mainnet.json src/main/resources/electrum/checkpoints_mainnet.json
             install -Dm644 ${self}/checkpoints/checkpoints_testnet.json src/main/resources/electrum/checkpoints_testnet.json
+          '';
+
+          patchClicheSyncParams = ''
+            patch -p1 < ${self}/patches/cliche-testnet-sync-params.patch
           '';
 
           # SBT/Maven dependencies are not GitHub sources and are normally
@@ -73,12 +81,13 @@
             dontUnpack = true;
             outputHashMode = "recursive";
             outputHashAlgo = "sha256";
-            outputHash = "sha256-qBuOwRPH2ISRH7R3ViITUhlfvMV1Njpr+ruRulhdX8U=";
+            outputHash = "sha256-SnjG4O42m5W0qSTTzyz+BvNozVef6ClhrwpP060rjq0=";
             buildPhase = ''
               ${setupTools}
               cp -R ${immortan} "$TMPDIR/immortan"
               chmod -R u+w "$TMPDIR/immortan"
               cd "$TMPDIR/immortan"
+              ${patchImmortanSyncNodes}
               ${patchImmortanCheckpoints}
               perl -i -0pe 's/.*sonatype.*\n//g' build.sbt
               sbt publishLocal update compile
@@ -86,6 +95,7 @@
               cp -R ${cliche} "$TMPDIR/cliche"
               chmod -R u+w "$TMPDIR/cliche"
               cd "$TMPDIR/cliche"
+              ${patchClicheSyncParams}
               ${patchCliche}
               # `update` is not enough: the final nativeImage task compiles
               # Scala and needs the Zinc compiler bridge sources/jars in the
@@ -114,10 +124,12 @@
               cp -R ${immortan} "$TMPDIR/immortan"
               chmod -R u+w "$TMPDIR/immortan"
               cd "$TMPDIR/immortan"
+              ${patchImmortanSyncNodes}
               ${patchImmortanCheckpoints}
               perl -i -0pe 's/.*sonatype.*\n//g' build.sbt
               sbt publishLocal
               cd "$NIX_BUILD_TOP/source"
+              ${patchClicheSyncParams}
               ${patchCliche}
             '';
             buildPhase = ''

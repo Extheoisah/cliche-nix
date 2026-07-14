@@ -1,0 +1,40 @@
+diff --git a/src/main/scala/Main.scala b/src/main/scala/Main.scala
+index 2b73ab7..bb90ded 100644
+--- a/src/main/scala/Main.scala
++++ b/src/main/scala/Main.scala
+@@ -38,6 +38,7 @@ import immortan.{
+   LightningNodeKeys,
+   PathFinder,
+   RemoteNodeInfo,
++  TestNetSyncParams,
+   SyncParams,
+   TxDescription,
+   WalletExt,
+@@ -92,12 +93,21 @@ object Main extends IOApp.Simple {
+     LNParams.routerConf =
+       Router.RouterConf(initRouteMaxLength = 20, LNParams.maxCltvExpiryDelta)
+     LNParams.ourInit = LNParams.createInit
+-    LNParams.syncParams = new SyncParams {
+-      override val minPHCCapacity = MilliSatoshi(10000000L)
+-      override val minNormalChansForPHC = 1
+-      override val maxPHCPerNode = 50
+-      override val minCapacity = MilliSatoshi(10000000L)
+-      override val maxNodesToSyncFrom = 3
++    LNParams.syncParams = Config.network match {
++      case "testnet" => new TestNetSyncParams {
++        override val minPHCCapacity = MilliSatoshi(10000000L)
++        override val minNormalChansForPHC = 1
++        override val maxPHCPerNode = 50
++        override val minCapacity = MilliSatoshi(10000000L)
++        override val maxNodesToSyncFrom = 3
++      }
++      case _ => new SyncParams {
++        override val minPHCCapacity = MilliSatoshi(10000000L)
++        override val minNormalChansForPHC = 1
++        override val maxPHCPerNode = 50
++        override val minCapacity = MilliSatoshi(10000000L)
++        override val maxNodesToSyncFrom = 3
++      }
+     }
+ 
+     LNParams.secret = WalletSecret(Config.seed)

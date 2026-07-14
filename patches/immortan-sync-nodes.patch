@@ -1,0 +1,167 @@
+diff --git a/src/main/scala/immortan/LNParams.scala b/src/main/scala/immortan/LNParams.scala
+index 6dc0298..6ffd5e7 100644
+--- a/src/main/scala/immortan/LNParams.scala
++++ b/src/main/scala/immortan/LNParams.scala
+@@ -340,8 +340,8 @@ class SyncParams {
+     PublicKey(
+       hex"0298f6074a454a1f5345cb2a7c6f9fce206cd0bf675d177cdbf0ca7508dd28852f"
+     ),
+-    NodeAddress.unresolved(9735, host = 73, 119, 255, 56),
+-    "bCashIsTrash"
++    NodeAddress.unresolved(9735, host = 70, 8, 171, 94),
++    "BCash_Is_Trash"
+   )
+   val zeroFeeRouting: RemoteNodeInfo = RemoteNodeInfo(
+     PublicKey(
+@@ -362,7 +362,7 @@ class SyncParams {
+       hex"03c436af41160a355fc1ed230a64f6a64bcbd2ae50f12171d1318f9782602be601"
+     ),
+     NodeAddress.unresolved(9735, host = 18, 191, 89, 219),
+-    "Conductor"
++    "mainnet.lightningconductor.net"
+   )
+   val jiraiya: RemoteNodeInfo = RemoteNodeInfo(
+     PublicKey(
+@@ -382,7 +382,7 @@ class SyncParams {
+     PublicKey(
+       hex"02e9046555a9665145b0dbd7f135744598418df7d61d3660659641886ef1274844"
+     ),
+-    NodeAddress.unresolved(9735, host = 31, 16, 52, 37),
++    NodeAddress.unresolved(9735, host = 88, 134, 40, 111),
+     "SilentBob"
+   )
+   val lightning: RemoteNodeInfo = RemoteNodeInfo(
+@@ -396,21 +396,71 @@ class SyncParams {
+     PublicKey(
+       hex"03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f"
+     ),
+-    NodeAddress.unresolved(9735, host = 34, 239, 230, 56),
++    NodeAddress.unresolved(9735, host = 3, 33, 236, 230),
+     "ACINQ"
+   )
++  val renePickhardt: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"03efccf2c383d7bf340da9a3f02e2c23104a0e4fe8ac1a880c8e2dc92fbdacd9df"
++    ),
++    NodeAddress.unresolved(9735, host = 144, 76, 235, 20),
++    "ln.rene-pickhardt.de"
++  )
++  val yellowWaffle: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"0313bae3a7d09d7f1a7ff595918567ba39e503789884d003036a88f7fcea3ec66f"
++    ),
++    NodeAddress.unresolved(9735, host = 88, 198, 91, 246),
++    "YELLOWWAFFLE"
++  )
++  val clRompert: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"024bd94f0425590434538fd21d4e58982f7e9cfd8f339205a73deb9c0e0341f5bd"
++    ),
++    NodeAddress.unresolved(9735, host = 165, 227, 69, 151),
++    "CL.rompert.com"
++  )
++  val emzyCL: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"02e1f8a072ef71f02657b582bf1a2bfd1cb4ea119d19c3ebf39476e2831a8359bc"
++    ),
++    NodeAddress.unresolved(9735, host = 167, 86, 90, 239),
++    "Emzy-c-l"
++  )
++  val node01Fulmo: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"024a8228d764091fce2ed67e1a7404f83e38ea3c7cb42030a2789e73cf3b341365"
++    ),
++    NodeAddress.unresolved(9735, host = 84, 16, 229, 1),
++    "node01.fulmo.org"
++  )
++  val electrumTrampoline: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"03ecef675be448b615e6176424070673ef8284e0fd19d8be062a6cb5b130a0a0d1"
++    ),
++    NodeAddress.unresolved(9740, host = 195, 201, 207, 61),
++    "Electrum Trampoline"
++  )
++  val illTryAnythingOnce: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"020d1617e27ac022395352f2b3774969593d3d6ddff6fb117d820a9dda8da45217"
++    ),
++    NodeAddress.unresolved(45323, host = 49, 13, 197, 106),
++    "i'llTryAnythingOnce"
++  )
+   val syncNodes: Set[RemoteNodeInfo] = Set(
+-    kamenRiderBlack,
+-    jiraiya,
++    acinq,
+     satm,
+-    motherbase,
+     bCashIsTrash,
+-    zeroFeeRouting,
+-    ergveinNet,
+     conductor,
+     silentBob,
+-    lightning,
+-    acinq
++    renePickhardt,
++    yellowWaffle,
++    clRompert,
++    emzyCL,
++    node01Fulmo,
++    electrumTrampoline,
++    illTryAnythingOnce
+   )
+   val phcSyncNodes: Set[RemoteNodeInfo] =
+     Set(satm, motherbase, ergveinNet)
+@@ -447,8 +497,8 @@ class TestNetSyncParams extends SyncParams {
+     PublicKey(
+       hex"03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134"
+     ),
+-    NodeAddress.unresolved(9735, host = 76, 223, 71, 211),
+-    "Endurance"
++    NodeAddress.unresolved(9735, host = 13, 248, 222, 197),
++    "endurance"
+   )
+   val localhost: RemoteNodeInfo = RemoteNodeInfo(
+     PublicKey(
+@@ -457,7 +507,41 @@ class TestNetSyncParams extends SyncParams {
+     NodeAddress.unresolved(9735, host = 10, 0, 2, 2),
+     "localhost"
+   )
+-  override val syncNodes: Set[RemoteNodeInfo] = Set(endurance, localhost, sbw)
++  val strangeIron: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"0225ff2ae6a3d9722b625072503c2f64f6eddb78d739379d2ee55a16b3b0ed0a17"
++    ),
++    NodeAddress.unresolved(19735, host = 203, 132, 94, 196),
++    "STRANGEIRON"
++  )
++  override val electrumTrampoline: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"02bf82e22f99dcd7ac1de4aad5152ce48f0694c46ec582567f379e0adbf81e2d0f"
++    ),
++    NodeAddress.unresolved(9739, host = 195, 201, 207, 61),
++    "Electrum trampoline"
++  )
++  val btcpayTestnet: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"03c7fcee3b9d1d09f422b063a93239e4b8e0e36de05272fb272396e4b2a374f825"
++    ),
++    NodeAddress.unresolved(9735, host = 161, 97, 129, 181),
++    "testnet.demo.btcpay.tech"
++  )
++  val observantOstrich: RemoteNodeInfo = RemoteNodeInfo(
++    PublicKey(
++      hex"02a8179121d54c30f3eb7facd8729b85dca1fc5b8d455fe856bc63af924bc76199"
++    ),
++    NodeAddress.unresolved(9735, host = 170, 75, 167, 126),
++    "Observant Ostrich"
++  )
++  override val syncNodes: Set[RemoteNodeInfo] = Set(
++    endurance,
++    strangeIron,
++    electrumTrampoline,
++    btcpayTestnet,
++    observantOstrich
++  )
+   override val phcSyncNodes: Set[RemoteNodeInfo] = Set(localhost, sbw)
+   override val minCapacity: MilliSatoshi = MilliSatoshi(100000000L)
+   override val minNormalChansForPHC = 1
