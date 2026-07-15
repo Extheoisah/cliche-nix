@@ -1,0 +1,7 @@
+.dockerignore
+.git/
+.gitignore
+AGENTS.md
+Dockerfile
+README.md
+result
